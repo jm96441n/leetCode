@@ -3,17 +3,15 @@ require 'pry'
 extend Test::Unit::Assertions
 
 def longest_palindrome(s)
-  is_palindrome = ->(string) { string == string.reverse }
-
-  return s if is_palindrome.call(s)
+  return s if s == s.reverse
 
   maxes = []
   arr = s.split('').join('|').split('').push('|').unshift('|')
-  longest = ''
   i = 0
 
   while i < arr.length
     j = 1
+    # check around letter for palindromes
     j += 1 while i - j >= 0 && arr[i + j] == arr[i - j]
     j -= 1
     maxes << arr[(i - j)..(i + j)].length / 2
