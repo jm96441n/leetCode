@@ -6,16 +6,16 @@ extend Test::Unit::Assertions
 # @return {String[]}
 def reorder_log_files(logs)
   dig_arr = []
-  let_arr = Array.new(logs.length)
+  let_arr = []
 
   logs.each do |log|
     idx = log_start_idx(log)
     if log[idx].match?(/\d/)
       dig_arr << log
     else
-      i = 0
-      check_str = log[idx..-1]
-
+      let_arr << [log[idx..-1], log]
+    end
+=begin
       log_to_add = log
 
       while i < let_arr.length
@@ -32,9 +32,10 @@ def reorder_log_files(logs)
         i += 1
       end
     end
+=end
   end
 
-  let_arr.compact + dig_arr
+  let_arr.sort.map { |pair| pair[1] }.concat(dig_arr)
 end
 
 def log_start_idx(log)
