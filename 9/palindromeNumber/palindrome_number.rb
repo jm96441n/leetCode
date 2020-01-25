@@ -3,33 +3,16 @@ require 'pry'
 extend Test::Unit::Assertions
 
 def is_palindrome(x)
-  return false if x.negative?
-  return true if x < 10
-  return false if (x % 10).zero?
+  n = x
+  rev = 0
 
-  palindrome = true
-
-  i = 0
-  i += 1 while 10**i < x
-
-  i -= 1
-  j = 1
-
-  while j <= i
-    front_dig = (x / 10**i) % 10
-
-    last_dig = (x % 10**j) / (10**(j - 1))
-
-    if front_dig != last_dig
-      palindrome = false
-      break
-    end
-
-    j += 1
-    i -= 1
+  while (x > 0)
+    dig = x % 10
+    rev = rev * 10 + dig
+    x = x / 10
   end
 
-  palindrome
+  n == rev
 end
 
 test_cases = {
